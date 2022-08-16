@@ -1,0 +1,114 @@
+version: "3.9"
+
+x-config: &config
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+    nofile:
+      soft: 65536
+      hard: 65536
+
+services:
+  ddb_controller:
+    <<: *config
+    image: ${IMAGE}
+    container_name: ddb_controller
+    volumes:
+      #- &lic ./dolphindb.lic:${CON_LIC}
+      - ${HOST_CFG}/controller.cfg:${CON_FIG}/controller.cfg
+      - ${HOST_CFG}/cluster.cfg:${CON_FIG}/cluster.cfg
+      - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
+      - ${HOST_CON_DATA}:${CON_DATA}
+      - ${HOST_CON_LOG}:${CON_LOG}
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller.cfg -logFile clusterDemo/log/controller.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+
+    restart: always
+    
+
+    ports:
+      - "8900:8900"
+
+    networks:
+      dev_dolphindb:
+        ipv4_address: 10.5.0.5
+
+  ddb_agent1: 
+    <<: *config
+    image: ${IMAGE}
+    container_name: ddb_agent1
+    volumes:
+      #- *lic
+      - ${HOST_CFG}/agent1.cfg:${CON_FIG}/agent.cfg
+      - ${HOST_AG1_DATA}:${CON_DATA}
+      - ${HOST_AG1_LOG}:${CON_LOG}
+
+
+
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent.cfg -logFile clusterDemo/log/agent.log"]
+
+    restart: always
+
+    depends_on:
+      - ddb_controller
+
+    ports:
+      - "8710:8710"
+      - "8711:8711"
+      - "8712:8712"
+    networks:
+      dev_dolphindb:
+        ipv4_address: 10.5.0.2
+
+  # ddb_agent2: 
+  #   <<: *config
+  #   image: ${IMAGE}
+  #   container_name: ddb_agent2
+  #   volumes:
+  #     - *lic
+
+  #   entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home data -config config/agent.cfg -logFile log/agent.log -stdoutLog true -script dolphindb.dos"]
+    
+  #   ports:
+  #     - "8810:8810"
+  #     - "8811:8811"
+  #     - "8812:8812"
+    
+
+     
+  
+  #   networks:
+  #     dev_dolphindb:
+  #       ipv4_address: 10.5.0.3
+
+  # ddb_agent3: 
+  #   <<: *config
+  #   image: ${IMAGE}
+  #   container_name: ddb_agent3
+  #   volumes:
+  #     - *lic
+
+
+  #   entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home data -config config/agent.cfg -logFile log/agent.log -stdoutLog true -script dolphindb.dos"]
+
+
+  #   ports:
+  #     - "8910:8910"
+  #     - "8911:8911"
+  #     - "8912:8912"
+
+    
+    
+
+  #   networks:
+  #     dev_dolphindb:
+  #       ipv4_address: 10.5.0.4
+
+
+networks:
+  dev_dolphindb:
+    name: dev_ddb
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.5.0.0/16

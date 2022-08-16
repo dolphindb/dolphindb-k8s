@@ -1,0 +1,71 @@
+version: "3.9"
+
+x-config: &config
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+    nofile:
+      soft: 65536
+      hard: 65536
+
+services:
+  ddb_controller1:
+    <<: *config
+    image: ${IMAGE}
+    container_name: ddb_controller1
+    volumes:
+      - ./dolphindb.lic:${CON_LIC}
+      - ${HOST_CFG}/controller1.cfg:${CON_FIG}/controller1.cfg
+      - ${HOST_CFG}/cluster.cfg:${CON_FIG}/cluster.cfg
+      - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
+      - ${HOST_CON_DATA}:${CON_DATA}
+      - ${HOST_CON_LOG}:${CON_LOG}
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller1.cfg -logFile clusterDemo/log/controller1.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+
+    restart: always
+    
+
+    ports:
+      - "8901:8901"
+
+    networks:
+      dev_dolphindb:
+        ipv4_address: 10.5.0.5
+  
+
+  ddb_agent1: 
+    <<: *config
+    image: ${IMAGE}
+    container_name: ddb_agent1
+    volumes:
+      - ./dolphindb.lic:${CON_LIC}
+      - ${HOST_CFG}/agent1.cfg:${CON_FIG}/agent1.cfg
+      - ${HOST_AG_DATA}:${CON_DATA}
+      - ${HOST_AG_LOG}:${CON_LOG}
+
+
+
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent1.cfg -logFile clusterDemo/log/agent1.log"]
+
+    restart: always
+
+    depends_on:
+      - ddb_controller1
+
+    ports:
+      - "8710:8710"
+      - "8711:8711"
+
+    networks:
+      dev_dolphindb:
+        ipv4_address: 10.5.0.4
+
+
+networks:
+  dev_dolphindb:
+    name: dev_ddb
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.5.0.0/16

@@ -1,0 +1,141 @@
+2022-07-11 06:26:22.973513 <INFO> :sites = 10.5.0.4:8710:agent1:agent
+2022-07-11 06:26:22.973586 <INFO> :sites = 10.5.0.5:8901:controller1:controller
+2022-07-11 06:26:22.973611 <INFO> :sites = 10.5.0.2:8902:controller2:controller
+2022-07-11 06:26:22.973617 <INFO> :sites = 10.5.0.3:8903:controller3:controller
+2022-07-11 06:26:22.973622 <INFO> :lanCluster = 0
+2022-07-11 06:26:22.973626 <INFO> :maxMemSize = 256
+2022-07-11 06:26:22.973631 <INFO> :console = 0
+2022-07-11 06:26:22.973636 <INFO> :mode = agent
+2022-07-11 06:26:22.973642 <INFO> :logFile = clusterDemo/log/agent.log
+2022-07-11 06:26:22.973649 <INFO> :home = clusterDemo/data
+2022-07-11 06:26:22.973655 <INFO> :controllerSite = 10.5.0.5:8901:controller1
+2022-07-11 06:26:22.973661 <INFO> :config = clusterDemo/config/agent1.cfg
+2022-07-11 06:26:22.973668 <INFO> :localSite = 10.5.0.4:8710:agent1
+2022-07-11 06:26:22.973672 <INFO> :workerNum = 4
+2022-07-11 06:26:22.973676 <INFO> :script = dolphindb.dos
+2022-07-11 06:26:22.973680 <INFO> :localExecutors = 31
+2022-07-11 06:26:22.974439 <INFO> :starting dolphindb sever...
+2022-07-11 06:26:22.974524 <WARNING> :regularArrayMemoryLimit real value is 2GB.
+2022-07-11 06:26:22.982208 <INFO> :BlockIOManager Workers=1 OneWorkerPerVolume=1
+2022-07-11 06:26:23.029877 <INFO> :Executing the system script:  /data/ddb/server/dolphindb.dos
+2022-07-11 06:26:23.033820 <INFO> :Create new server key and certificate.
+2022-07-11 06:26:23.359084 <INFO> :alias = agent1
+2022-07-11 06:26:23.359101 <INFO> :host = 10.5.0.4
+2022-07-11 06:26:23.359109 <INFO> :port = 8710
+2022-07-11 06:26:23.359113 <INFO> :mode = agent
+2022-07-11 06:26:23.359117 <INFO> :coreNum = 2
+2022-07-11 06:26:23.359121 <INFO> :maxNodeNum(license) = 128
+2022-07-11 06:26:23.359150 <INFO> :maxMemSize(GB) = 256
+2022-07-11 06:26:23.359155 <INFO> :workerNum = 4
+2022-07-11 06:26:23.359159 <INFO> :localExecutors = 31
+2022-07-11 06:26:23.359163 <INFO> :remoteExecutors = 4
+2022-07-11 06:26:23.359167 <INFO> :maxConnections(inward) = 176
+2022-07-11 06:26:23.359171 <INFO> :maxConnections(outward) = 144
+2022-07-11 06:26:23.359175 <INFO> :maxConnectionPerSite(outward) = 36
+2022-07-11 06:26:23.359179 <INFO> :maxMsgNumPerBlock =1024
+2022-07-11 06:26:23.359184 <INFO> :maxPubConnections = 0
+2022-07-11 06:26:23.359188 <INFO> :maxSubConnections = 64
+2022-07-11 06:26:23.359191 <INFO> :subPort = 0
+2022-07-11 06:26:23.359195 <INFO> :subExecutors = 1
+2022-07-11 06:26:23.359202 <INFO> :subExecutorPooling = 0
+2022-07-11 06:26:23.359312 <INFO> :Job schedule initialized successfully.
+2022-07-11 06:26:23.360030 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:23.860972 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:24.361841 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:24.862718 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:25.363694 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:25.864810 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:26.365782 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:26.866696 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:27.367536 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:27.868394 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:28.369284 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:28.870167 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:29.371257 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:29.872157 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:30.373141 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:30.874173 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:31.374989 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:31.875917 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:32.376825 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:32.877844 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:33.378633 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:33.879753 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:34.380513 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:34.881319 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:35.382226 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:35.883168 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-11 06:26:36.384334 <INFO> :Created a new socket connection. Number of connections: 1
+2022-07-11 06:26:36.384422 <INFO> :New connection from ip = 10.5.0.1 port = 49294
+2022-07-11 06:26:36.384891 <INFO> :Agent save ACL_PUB_KEY succ
+2022-07-11 06:26:36.385063 <INFO> :Close a connection with index=1. Number of remaining connections: 0
+2022-07-11 06:26:37.385341 <INFO> :Created a new socket connection. Number of connections: 1
+2022-07-11 06:26:37.385407 <INFO> :New connection from ip = 10.5.0.1 port = 49296
+2022-07-11 06:26:37.385886 <INFO> :Agent save ACL_PUB_KEY succ
+2022-07-11 06:26:37.386083 <INFO> :Close a connection with index=1. Number of remaining connections: 0
+2022-07-12 03:17:07.408190 <ERROR> :HeartBeatSender exception : Failed to read response header from the socket with IO error type 13
+2022-07-12 03:17:07.909141 <INFO> :HeartBeatSender: new leader is controller1
+2022-07-13 00:58:36.420665 <INFO> :Received signal 15
+2022-07-13 00:58:36.424667 <INFO> :The local executor thread 0 terminated peacefully.
+2022-07-13 00:58:36.424776 <INFO> :The local executor thread 1 terminated peacefully.
+2022-07-13 00:58:36.425321 <INFO> :The local executor thread 22 terminated peacefully.
+2022-07-13 00:58:36.425397 <INFO> :The local executor thread 30 terminated peacefully.
+2022-07-13 00:58:36.425412 <INFO> :The local executor thread 2 terminated peacefully.
+2022-07-13 00:58:36.425456 <INFO> :The local executor thread 3 terminated peacefully.
+2022-07-13 00:58:36.425461 <INFO> :Worker Thread 0 terminated peacefully.
+2022-07-13 00:58:36.425489 <INFO> :The local executor thread 4 terminated peacefully.
+2022-07-13 00:58:36.425503 <INFO> :Worker Thread 1 terminated peacefully.
+2022-07-13 00:58:36.425518 <INFO> :The local executor thread 5 terminated peacefully.
+2022-07-13 00:58:36.425548 <INFO> :The local executor thread 6 terminated peacefully.
+2022-07-13 00:58:36.425555 <INFO> :Worker Thread 2 terminated peacefully.
+2022-07-13 00:58:36.425579 <INFO> :The local executor thread 7 terminated peacefully.
+2022-07-13 00:58:36.425615 <INFO> :Worker Thread 4 terminated peacefully.
+2022-07-13 00:58:36.425623 <INFO> :The local executor thread 8 terminated peacefully.
+2022-07-13 00:58:36.425675 <INFO> :Worker Thread 0 terminated peacefully.
+2022-07-13 00:58:36.425721 <INFO> :Worker Thread 1 terminated peacefully.
+2022-07-13 00:58:36.425767 <INFO> :Worker Thread 2 terminated peacefully.
+2022-07-13 00:58:36.425814 <INFO> :Worker Thread 3 terminated peacefully.
+2022-07-13 00:58:36.425862 <INFO> :Worker Thread 0 terminated peacefully.
+2022-07-13 00:58:36.426087 <INFO> :The local executor thread 9 terminated peacefully.
+2022-07-13 00:58:36.426144 <INFO> :The local executor thread 10 terminated peacefully.
+2022-07-13 00:58:36.426180 <INFO> :The local executor thread 11 terminated peacefully.
+2022-07-13 00:58:36.426236 <INFO> :The local executor thread 12 terminated peacefully.
+2022-07-13 00:58:36.426279 <INFO> :The local executor thread 13 terminated peacefully.
+2022-07-13 00:58:36.426321 <INFO> :The local executor thread 14 terminated peacefully.
+2022-07-13 00:58:36.426360 <INFO> :The local executor thread 15 terminated peacefully.
+2022-07-13 00:58:36.426399 <INFO> :The local executor thread 16 terminated peacefully.
+2022-07-13 00:58:36.426443 <INFO> :The local executor thread 17 terminated peacefully.
+2022-07-13 00:58:36.426484 <INFO> :The local executor thread 18 terminated peacefully.
+2022-07-13 00:58:36.426522 <INFO> :The local executor thread 19 terminated peacefully.
+2022-07-13 00:58:36.426574 <INFO> :The local executor thread 20 terminated peacefully.
+2022-07-13 00:58:36.426634 <INFO> :The local executor thread 21 terminated peacefully.
+2022-07-13 00:58:36.426671 <INFO> :The local executor thread 23 terminated peacefully.
+2022-07-13 00:58:36.426709 <INFO> :The local executor thread 24 terminated peacefully.
+2022-07-13 00:58:36.426742 <INFO> :The local executor thread 25 terminated peacefully.
+2022-07-13 00:58:36.426774 <INFO> :The local executor thread 26 terminated peacefully.
+2022-07-13 00:58:36.426806 <INFO> :The local executor thread 27 terminated peacefully.
+2022-07-13 00:58:36.426837 <INFO> :The local executor thread 28 terminated peacefully.
+2022-07-13 00:58:36.426867 <INFO> :The local executor thread 29 terminated peacefully.
+2022-07-13 00:58:36.427338 <INFO> :Worker Thread 3 terminated peacefully.
+2022-07-13 00:58:36.429898 <INFO> :The remote task thread terminated peacefully.
+2022-07-13 00:58:36.435852 <INFO> :The inbound socket thread terminated peacefully.
+2022-07-13 00:58:36.435877 <ERROR> :The socket server ended.
+2022-07-13 00:58:36.493769 <INFO> :BackgroundRoutineService terminated peacefully.
+2022-07-13 00:58:36.550232 <INFO> :DynamicWorkerManager Thread  terminated peacefully.
+2022-07-13 00:58:36.576818 <INFO> :BackgroundRoutineService terminated peacefully.
+2022-07-13 00:58:36.577255 <INFO> :BackgroundRoutineService terminated peacefully.
+2022-07-13 00:58:36.625493 <INFO> :Remaining workers = 0 executors = 0 otherThreads = 4
+2022-07-13 00:58:36.644620 <INFO> :HeatBeatSender terminated peacefully.
+2022-07-13 00:58:36.825613 <INFO> :Remaining workers = 0 executors = 0 otherThreads = 3
+2022-07-13 00:58:36.901031 <INFO> :The outbound socket thread terminated peacefully.
+2022-07-13 00:58:36.901041 <INFO> :RemoteExecutor Thread 0 terminated peacefully.
+2022-07-13 00:58:36.901124 <INFO> :RemoteExecutor Thread 1 terminated peacefully.
+2022-07-13 00:58:36.901158 <INFO> :RemoteExecutor Thread 3 terminated peacefully.
+2022-07-13 00:58:36.901159 <INFO> :RemoteExecutor Thread 2 terminated peacefully.
+2022-07-13 00:58:37.025748 <INFO> :Remaining workers = 0 executors = 0 otherThreads = 2
+2022-07-13 00:58:37.183299 <INFO> :BackgroundRoutineService terminated peacefully.
+2022-07-13 00:58:37.225853 <INFO> :Remaining workers = 0 executors = 0 otherThreads = 1
+2022-07-13 00:58:37.241419 <INFO> :DynamicExecutorManager Thread terminated peacefully.
+2022-07-13 00:58:37.425956 <INFO> :Remaining workers = 0 executors = 0 otherThreads = 0
+2022-07-13 00:58:37.430409 <INFO> :MainServer shutdown.
+

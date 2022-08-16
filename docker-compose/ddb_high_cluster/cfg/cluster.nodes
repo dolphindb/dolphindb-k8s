@@ -1,0 +1,9 @@
+localSite,mode
+10.5.0.5:8901:controller1,controller
+10.5.0.2:8902:controller2,controller
+10.5.0.3:8903:controller3,controller
+10.5.0.4:8710:agent1,agent
+10.5.0.4:8711:P1-node1,datanode
+10.5.0.4:8712:P1-node2,datanode
+10.5.0.4:8713:P1-node3,datanode
+

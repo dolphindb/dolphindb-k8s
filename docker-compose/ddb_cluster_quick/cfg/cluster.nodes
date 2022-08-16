@@ -1,0 +1,5 @@
+localSite,mode
+10.5.0.2:8710:P1-agent,agent
+10.5.0.2:8711:P1-node1,datanode
+
+
