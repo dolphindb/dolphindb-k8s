@@ -11,12 +11,11 @@
   - [2.1 Dock(X86架构版)](#21-dockx86架构版)
   - [2.2 Dock(ARM架构)](#22-dockarm架构)
 - [3. 生产环境部署建议（以X86架构版为例）](#3-生产环境部署建议以x86架构版为例)
-- [3. 生产环境部署建议（以X86架构版为例）](#3-生产环境部署建议以x86架构版为例-1)
   - [3.1 在线部署](#31-在线部署)
   - [3.2 离线部署](#32-离线部署)
 - [4. 常见问题](#4-常见问题)
   - [4.1 如何自定义配置文件](#41-如何自定义配置文件)
-  - [4.2 如何版本升级](#42-如何版本升级)
+  - [4.2 如何升级版本](#42-如何升级版本)
   - [4.3 报错及解决方案](#43-报错及解决方案)
 
 <!-- /TOC -->
@@ -125,8 +124,6 @@ docker ps|grep dolphindb
 
 ## 3. 生产环境部署建议（以X86架构版为例）
 
-## 3. 生产环境部署建议（以X86架构版为例）
-
 ###  3.1 在线部署
 
 - 登陆机器执行 shell 脚本，下载安装包并配置容器映射文件，以 v2.00.5 为例
@@ -137,7 +134,7 @@ docker ps|grep dolphindb
   sh map_dir.sh
   ```
 
-  <!-->> 注意: 由于新建的目录是 `/ddbdocker`，可能遇到用户新建权限问题，需自行修改可以用户可以创建权限的文件夹-->
+  <!-- >> 注意: 由于新建的目录是 `/ddbdocker`，可能遇到用户新建权限问题，需自行修改可以用户可以创建权限的文件夹 -->
 
   执行下面命令：
 
@@ -390,7 +387,7 @@ lanCluster=0
 
   其余参数详情可查看[DolphinDB官方文档-单实例配置](https://www.dolphindb.cn/cn/help/DatabaseandDistributedComputing/Configuration/StandaloneMode.html)。用户可根据实际使用场景进行相关配置。
 
-### 4.2 如何版本升级
+### 4.2 如何升级版本
 
   执行如下命令拉取新版本的 DolphinDB 镜像，下例拉取的镜像为 2.00.6 版本：
 
@@ -413,7 +410,7 @@ lanCluster=0
     sh \
     -stdoutLog 1
 ```
-DolphinDB 升级只是替换官网的二进制安装包，需要保留之前版本的 `dolphindb.cfg`（DolphinDB 的配置）, `dolphindb.lic`（DolphinDB 的证书文件）, `plugins`（DolphinDB 内置的插件）, `data`（DolphinDB 内置的数据文件等）目录，以保证配置不更改以及数据不丢失。
+DolphinDB 升级只是替换二进制安装包，需要保留之前版本的 `dolphindb.cfg`（DolphinDB 的配置）, `dolphindb.lic`（DolphinDB 的证书文件）, `plugins`（DolphinDB 内置的插件）, `data`（DolphinDB 内置的数据文件等）目录，以保证配置不更改和数据不丢失。
   > 注意：
   >
   > 1.由于 Docker 容器名要求唯一，如果之前的容器依旧保留，则新容器名必须要和之前的容器名不同；
