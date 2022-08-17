@@ -1,7 +1,7 @@
 # DolphinDB in Kubernetes 教程
 
 <p align='center'>
-    <img src='./images/ddb.svg' alt='DolphinDB' width='256'>
+    <img src='images/ddb.svg' alt='DolphinDB' width='256'>
 </p>
 <p align='center'>
     <a href='https://github.com/dolphindbit/helm-chart' target='_blank'>
