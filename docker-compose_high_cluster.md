@@ -177,7 +177,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
 
 点击右上角登录按钮，输入用户名 admin 和密码123456登录，来启动容器服务等；
 
-- 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/安装和部署/ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
+- 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
 
 ### 5. 生产环境（多机高可用）
 
@@ -351,7 +351,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
 
 点击右上角登录按钮，输入用户名 admin 和密码123456登录，来启动容器服务等；
 
-- 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/安装和部署/ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
+- 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
 
 ### 6. 常见问题
 
@@ -394,5 +394,5 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
   ```
 
   此报错表示没有声明数据卷，或没有采用相对路径来映射数据卷。
-  
+
   解决方案：在文件中配置数据卷名称，并采用相对路径进行文件映射。
