@@ -8,8 +8,8 @@
 - [DolphinDB Docker 单机部署方案](#dolphindb-docker-单机部署方案)
 - [1. 环境准备](#1-环境准备)
 - [2. 快速体验](#2-快速体验)
-  - [2.1 Dock(X86架构版)](#21-dockx86架构版)
-  - [2.2 Dock(ARM架构)](#22-dockarm架构)
+  - [2.1 Docker(X86架构版)](#21-dockerx86架构版)
+  - [2.2 Docker(ARM架构)](#22-dockerarm架构)
 - [3. 生产环境部署建议（以X86架构版为例）](#3-生产环境部署建议以x86架构版为例)
   - [3.1 在线部署](#31-在线部署)
   - [3.2 离线部署](#32-离线部署)
@@ -41,7 +41,7 @@ docker pull dolphindb/dolphindb:v2.00.5
 
 ## 2. 快速体验
 
-### 2.1 Dock(X86架构版)
+### 2.1 Docker(X86架构版)
 
 - 登录机器执行以下脚本，创建一个 Docker 容器：
 
@@ -83,7 +83,7 @@ docker pull dolphindb/dolphindb:v2.00.5
   详细教程参考[DolphinDB客户端软件教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/client_tool_tutorial.md)
   
 
-### 2.2 Dock(ARM架构)
+### 2.2 Docker(ARM架构)
 
 登录机器执行以下脚本，创建一个 Docker 容器：
 

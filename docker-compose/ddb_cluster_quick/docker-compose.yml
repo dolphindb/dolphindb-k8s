@@ -15,7 +15,6 @@ services:
     image: ${IMAGE}
     container_name: ddb_controller
     volumes:
-      #- &lic ./dolphindb.lic:${CON_LIC}
       - ${HOST_CFG}/controller.cfg:${CON_FIG}/controller.cfg
       - ${HOST_CFG}/cluster.cfg:${CON_FIG}/cluster.cfg
       - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
@@ -38,7 +37,6 @@ services:
     image: ${IMAGE}
     container_name: ddb_agent1
     volumes:
-      #- *lic
       - ${HOST_CFG}/agent1.cfg:${CON_FIG}/agent.cfg
       - ${HOST_AG1_DATA}:${CON_DATA}
       - ${HOST_AG1_LOG}:${CON_LOG}
@@ -60,49 +58,7 @@ services:
       dev_dolphindb:
         ipv4_address: 10.5.0.2
 
-  # ddb_agent2: 
-  #   <<: *config
-  #   image: ${IMAGE}
-  #   container_name: ddb_agent2
-  #   volumes:
-  #     - *lic
 
-  #   entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home data -config config/agent.cfg -logFile log/agent.log -stdoutLog true -script dolphindb.dos"]
-    
-  #   ports:
-  #     - "8810:8810"
-  #     - "8811:8811"
-  #     - "8812:8812"
-    
-
-     
-  
-  #   networks:
-  #     dev_dolphindb:
-  #       ipv4_address: 10.5.0.3
-
-  # ddb_agent3: 
-  #   <<: *config
-  #   image: ${IMAGE}
-  #   container_name: ddb_agent3
-  #   volumes:
-  #     - *lic
-
-
-  #   entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home data -config config/agent.cfg -logFile log/agent.log -stdoutLog true -script dolphindb.dos"]
-
-
-  #   ports:
-  #     - "8910:8910"
-  #     - "8911:8911"
-  #     - "8912:8912"
-
-    
-    
-
-  #   networks:
-  #     dev_dolphindb:
-  #       ipv4_address: 10.5.0.4
 
 
 networks:

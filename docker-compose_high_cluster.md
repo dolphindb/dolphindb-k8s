@@ -41,11 +41,12 @@
   
   - 多机版：
   
-  | 主机名 | IP          | 部署服务                               | 数据盘挂载 |
-  | :----- | :---------- | :------------------------------------- | :--------- |
-  | host1  | xx.xx.xx.81 | dolphindb controller1&dolphindb agent1 | /host1     |
-  | host2  | xx.xx.xx.82 | dolphindb controller2&dolphindb agent2 | /host2     |
-  | host3  | xx.xx.xx.83 | dolphindb controller3&dolphindb agent3 | /host3     |
+    | 主机名 | IP          | 部署服务                               | 数据盘挂载 |
+    | :----- | :---------- | :------------------------------------- | :--------- |
+    | host1  | xx.xx.xx.81 | dolphindb controller1&dolphindb agent1 | /host1     |
+    | host2  | xx.xx.xx.82 | dolphindb controller2&dolphindb agent2 | /host2     |
+    | host3  | xx.xx.xx.83 | dolphindb controller3&dolphindb agent3 | /host3     |
+  
 
 ### 2. 集群结构介绍
 <!-- 感觉有些多余，可以删去，放上相关教程链接-->
@@ -101,7 +102,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
 
 #### 4.1 部署介绍
 
-​本节通过 `Docker Compose` 在单机的多个容器中快速部署具有多个控制节点和多个数据节点的高可用集群。您可下载一个基于 `Docker Compose` 部署的具有三个控制节点和三个数据节点的 DolphinDB 高可用集群项目。本次所使用的 DolphinDB 镜像是 `v2.00.5` 。请注意，社区版不支持搭建高可用集群，企业版支持搭建高可用集群，但需要替换证书文件。
+本节通过 `Docker Compose` 在单机的多个容器中快速部署具有多个控制节点和多个数据节点的高可用集群。您可下载一个基于 `Docker Compose` 部署的具有三个控制节点和三个数据节点的 DolphinDB 高可用集群项目。本次所使用的 DolphinDB 镜像是 `v2.00.5` 。请注意，社区版不支持搭建高可用集群，企业版支持搭建高可用集群，但需要替换证书文件。
 
 #### 4.2 使用步骤
 
@@ -114,7 +115,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
 - 执行如下命令，查看项目目录架构：
 
   ```shell
-  $ cd dolphindb_k8s/docker-compose/ddb_high_3cluster && tree ./
+  $ cd dolphindb_k8s/docker-compose/ddb_high_cluster && tree ./
   ```
 
   预期输出：

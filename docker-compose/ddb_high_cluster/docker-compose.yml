@@ -21,11 +21,11 @@ services:
       - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
       - ${HOST_CON_DATA}:${CON_DATA}
       - ${HOST_CON_LOG}:${CON_LOG}
-      
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller1.cfg -logFile clusterDemo/log/controller.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller1.cfg -logFile clusterDemo/log/controller1.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
 
     restart: always
     
+
     ports:
       - "8901:8901"
 
@@ -44,10 +44,10 @@ services:
       - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
       - ${HOST_CON_DATA}:${CON_DATA}
       - ${HOST_CON_LOG}:${CON_LOG}
-      
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller2.cfg -logFile clusterDemo/log/controller.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller2.cfg -logFile clusterDemo/log/controller2.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
 
     restart: always
+    
 
     ports:
       - "8902:8902"
@@ -67,10 +67,10 @@ services:
       - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
       - ${HOST_CON_DATA}:${CON_DATA}
       - ${HOST_CON_LOG}:${CON_LOG}
-      
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller3.cfg -logFile clusterDemo/log/controller.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller3.cfg -logFile clusterDemo/log/controller3.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
 
     restart: always
+    
 
     ports:
       - "8903:8903"
@@ -86,10 +86,12 @@ services:
     volumes:
       - *lic
       - ${HOST_CFG}/agent1.cfg:${CON_FIG}/agent1.cfg
-      - ${HOST_AG1_DATA}:${CON_DATA}
-      - ${HOST_AG1_LOG}:${CON_LOG}
+      - ${HOST_AG_DATA}:${CON_DATA}
+      - ${HOST_AG_LOG}:${CON_LOG}
 
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent1.cfg -logFile clusterDemo/log/agent.log"]
+
+
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent1.cfg -logFile clusterDemo/log/agent1.log"]
 
     restart: always
 
@@ -99,13 +101,77 @@ services:
       - ddb_controller3
 
     ports:
-      - "8710:8710"
-      - "8711:8711"
-      - "8712:8712"
-      - "8713:8713"
+      - "8904:8904"
+      - "8905:8905"
+
     networks:
       dev_dolphindb:
         ipv4_address: 10.5.0.4
+
+
+
+  ddb_agent2: 
+    <<: *config
+    image: ${IMAGE}
+    container_name: ddb_agent2
+    volumes:
+      - *lic
+      - ${HOST_CFG}/agent2.cfg:${CON_FIG}/agent2.cfg
+      - ${HOST_AG_DATA}:${CON_DATA}
+      - ${HOST_AG_LOG}:${CON_LOG}
+
+
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent2.cfg -logFile clusterDemo/log/agent2.log"]
+    
+    restart: always
+
+    depends_on:
+      - ddb_controller1
+      - ddb_controller2
+      - ddb_controller3
+
+    ports:
+      - "8906:8906"
+      - "8907:8907"
+
+    
+  
+    networks:
+      dev_dolphindb:
+        ipv4_address: 10.5.0.6
+
+  ddb_agent3: 
+    <<: *config
+    image: ${IMAGE}
+    container_name: ddb_agent3
+    volumes:
+      - *lic
+      - ${HOST_CFG}/agent3.cfg:${CON_FIG}/agent3.cfg
+      - ${HOST_AG_DATA}:${CON_DATA}
+      - ${HOST_AG_LOG}:${CON_LOG}
+
+
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent3.cfg -logFile clusterDemo/log/agent3.log"]
+
+    restart: always
+
+    depends_on:
+      - ddb_controller1
+      - ddb_controller2
+      - ddb_controller3
+
+    ports:
+      - "8908:8908"
+      - "8909:8909"
+
+
+    
+    
+
+    networks:
+      dev_dolphindb:
+        ipv4_address: 10.5.0.7
+
 
 networks:
   dev_dolphindb:

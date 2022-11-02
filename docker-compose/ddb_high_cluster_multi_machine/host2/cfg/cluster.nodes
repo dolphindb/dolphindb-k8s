@@ -2,10 +2,11 @@ localSite,mode
 10.0.0.81:8901:controller1,controller
 10.0.0.82:8902:controller2,controller
 10.0.0.83:8903:controller3,controller
-10.0.0.81:8710:agent1,agent
-10.0.0.81:8711:P1-node1,datanode
-10.0.0.82:8810:agent2,agent
-10.0.0.82:8811:P2-node1,datanode
-10.0.0.83:8910:agent3,agent
-10.0.0.83:8911:P3-node1,datanode
+10.0.0.81:8904:agent1,agent
+10.0.0.81:8905:P1-node1,datanode
+10.0.0.82:8906:agent2,agent
+10.0.0.82:8907:P2-node1,datanode
+10.0.0.83:8908:agent3,agent
+10.0.0.83:8909:P3-node1,datanode
+
 

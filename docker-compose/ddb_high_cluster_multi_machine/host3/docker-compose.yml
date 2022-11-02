@@ -21,7 +21,7 @@ services:
       - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
       - ${HOST_CON_DATA}:${CON_DATA}
       - ${HOST_CON_LOG}:${CON_LOG}
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller3.cfg -logFile clusterDemo/log/controller3.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller3.cfg -logFile clusterDemo/log/controller3.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
 
     restart: always
     
@@ -44,7 +44,7 @@ services:
       - ${HOST_AG_LOG}:${CON_LOG}
 
 
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent3.cfg -logFile clusterDemo/log/agent3.log"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent3.cfg -logFile clusterDemo/log/agent3.log"]
 
     restart: always
 
@@ -52,8 +52,8 @@ services:
       - ddb_controller3
 
     ports:
-      - "8910:8910"
-      - "8911:8911"
+      - "8908:8910"
+      - "8909:8909"
 
 
     
