@@ -15,7 +15,7 @@
 
 ## English | [中文](./README_CN.md)
 
-## 目录
+## Contents
 
 - Deploy
   - [Deploy DolphinDB on Kubernetes](./k8s_deployment_EN.md)
