@@ -299,7 +299,7 @@ http://$nodeIP:$NodePort/dolphindb-cloud
     期待输出如下图：
     ![版本](./images/dolphindb-mgr-aws-byol-v2/version.png)
 
-关于如何在 K8s 上部署 DolphinDB 的更多介绍，请参见 [基于K8s的DolphinDB 部署教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/k8s_deployment.md#23-%E9%83%A8%E7%BD%B2%E5%B9%B6%E8%BF%9E%E6%8E%A5-dolphindb-%E9%9B%86%E7%BE%A4)
+关于如何在 K8s 上部署 DolphinDB 的更多介绍，请参见 [基于K8s的DolphinDB 部署教程](https://gitee.com/dolphindb/dolphindb-k8s/blob/master/k8s_deployment.md#23-%E9%83%A8%E7%BD%B2%E5%B9%B6%E8%BF%9E%E6%8E%A5-dolphindb-%E9%9B%86%E7%BE%A4)
 
 ## 6. 清理环境
 ### 6.1 销毁 DolphinDB 
