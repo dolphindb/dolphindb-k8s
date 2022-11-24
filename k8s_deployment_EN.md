@@ -9,8 +9,9 @@ Kubernetes, also known as K8s, is an open-source system for automating deploymen
     - [2.2 Deploy DolphinDB-MGR](#22-deploy-dolphindb-mgr)
     - [2.3 Deploy and Connect to DolphinDB Clusters](#23-deploy-and-connect-to-dolphindb-clusters)
     - [2.4 Upgrade DolphinDB Clusters](#24-upgrade-dolphindb-clusters)
-    - [2.5 Delete Clusters](#25-delete-clusters)
-    - [2.6 Uninstall DolphinDB-MGR](#26-uninstall-dolphindb-mgr)
+    - [2.5 Update License Files](#25-update-license-files)
+    - [2.6 Delete Clusters](#26-delete-clusters)
+    - [2.7 Uninstall DolphinDB-MGR](#27-uninstall-dolphindb-mgr)
   - [3. Enable Core Dump in Kubernetes](#3-enable-core-dump-in-kubernetes)
   - [4. FAQ](#4-faq)
 
@@ -350,13 +351,49 @@ As shown below, the cluster is upgraded to `v1.30.15` and the status is `Availab
 
 > The functionality of upgrading DolphinDB in the web user interface is under development.
 
-### 2.5 Delete Clusters
+### 2.5 Update License Files
 
-#### 2.5.1 Delete Kubernetes Clusters
+Follow the steps to update license file for a DolphinDB cluster.
+
+(1) Get the cluster names on K8s
+
+```bash
+$ kubectl get cm -ndolphindb
+```
+
+(2) Select the yaml file of the target cluster where the license needs to be upgraded (ddb_test1 in this example).
+
+```bash
+$ kubectl edit cm ddb_test1 -oyaml -ndolphindb
+```  
+
+![](./images/k8s_deployment/updatelicense.png)
+
+Replace the part circled in red as shown above with a new license and save it.
+
+(3) Restart the pods after updating the license.
+   
+```bash
+$ kubectl get pod -ndolphindb | grep ddb_test1 | awk '{print $1}' | xargs kubectl delete pod -ndolphindb
+``` 
+
+(4) Execute the following command to obtain the status of all pods.
+
+```bash
+$ kubectl get pod -ndolphindb
+``` 
+
+![](./images/k8s_deployment/updatelicense1.png)
+
+If all pods are running as shown above, the license file is successfully updated.
+
+### 2.6 Delete Clusters
+
+#### 2.6.1 Delete Kubernetes Clusters
 
 To delete a Kubernetes cluster, please refer to [this page](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#tear-down) if you create it using Kubeadm, and [this page](https://minikube.sigs.k8s.io/docs/commands/delete/) if you create it using Minikube. 
 
-#### 2.5.2 Delete DolphinDB Clusters
+#### 2.6.2 Delete DolphinDB Clusters
 
 There are 2 ways to delete DolphinDB clusters.
 
@@ -374,7 +411,7 @@ kubectl delete ddb $ddbName  -ndolphindb
 
 - **$ddbName:** DolphinDB cluster name
 
-### 2.6 Uninstall DolphinDB-MGR
+### 2.7 Uninstall DolphinDB-MGR
 
 Run the following command to uninstall DolphinDB-MGR:
 
