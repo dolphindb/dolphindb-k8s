@@ -29,7 +29,7 @@
 
 - **安装 Docker Compose**
 
-本教程推荐从 [官方 GitHub Release](https://github.com/docker/compose/releases)上下载编译好的 `Docker Compose` 二进制文件。具体安装和使用方法可参考[Docker Compose 官方文档](https://docs.docker.com/compose/install/compose-plugin/)
+本教程推荐从 [官方 GitHub Release](https://github.com/docker/compose/releases)上下载编译好的 `Docker Compose` 二进制文件。具体安装和使用方法可参考[Docker Compose 官方文档](https://docs.docker.com/compose/install/)
 
 - **主机信息**
 
