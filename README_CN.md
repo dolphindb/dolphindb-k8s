@@ -22,10 +22,19 @@
     - [AWS 部署 DolphinDB in Kubernetes](./k8s_deployment_in_AWS.md)
     - [基于阿里云K8S的DolphinDB套件部署教程](./k8s_deployment_in_Aliyun.md)
 - 集群管理
-    - [通过 DolphinDB CR 在 Kubernetes 上管理 DolphinDB 集群](./k8s_DDB_CR_clusters.md)  
+    - [通过 DolphinDB CR 在 Kubernetes 上管理 DolphinDB 集群](./k8s_DDB_CR_clusters.md)
+- 套件介绍
+    - [Loki](./loki.md)
+    - [Grafana](./grafana.md)
+    - [Prometheus](./prometheus.md)
+    - [Alertmanager](./alertmanager.md)
+    - [Node Exporter](./node_exporter.md)
+    - [DolphinDB Operator](./dolphindb_operator.md)
+    - [DolphinDB WebServer](./dolphindb_webserver.md)
+    - [DolphinDB Cloud Portal](./dolphindb_cloud_portal.md)
 - 版本发布历史
-    - [DolphinDB V1.0.0 Realease Notes](./realease/1.0/README_CN.md)
-    - [DolphinDB V1.0.1 Realease Notes](./realease/1.0/README_CN.md)
+    - [DolphinDB V1.0.0 Release Notes](./release/1.0/README_CN.md)
+    - [DolphinDB V1.0.1 Release Notes](./release/1.0/README_CN.md)
 - 关于 DolphinDB in Docker 教程
     - [DolphinDB Docker 单机部署方案](./docker_single_deployment.md)
     - [DolphinDB Docker-Compose 部署方案](./docker-compose_high_cluster.md)

@@ -180,6 +180,8 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
 
 - 自定义添加、删改节点和使用高可用功能。可结合[DolphinDB高可用集群部署教程](https://gitee.com/dolphindb/Tutorials_CN/blob/master/ha_cluster_deployment.md)和[Docker Compose官方文档](https://docs.docker.com/compose/compose-file/)进行操作
 
+> 注：在单机高可用版的项目中，关于配置文件中 DolphinDB 各节点ip地址所配置的是 `Docker Compose` 构建的虚拟网段中的，因此无法扩展为多机高可用集群。如要扩展成多机高可用版的集群，需要需要修改配置文件中各节点的ip信息为其所属容器的宿主机ip以实现各宿主机容器间的通信，详情见下一节。
+
 ### 5. 生产环境（多机高可用）
 
 #### 5.1 部署介绍

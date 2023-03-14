@@ -1,18 +1,24 @@
 # 通过 DolphinDB CR 在 Kubernetes 上管理 DolphinDB 集群
 
-- [通过 DolphinDB CR 在 Kubernetes 上管理 DolphinDB 集群](#通过-dolphindb-cr-在-kubernetes-上管理-dolphindb-集群)
-  - [1. 概述](#1-概述)
-  - [2. 创建 DolphinDB 集群](#2-创建-dolphindb-集群)
-    - [2.1. 前置条件](#21-前置条件)
-  - [3. 创建单节点 DolphinDB](#3-创建单节点-dolphindb)
-  - [4. 创建单控制节点 DolphinDB 集群](#4-创建单控制节点-dolphindb-集群)
-  - [5. 创建多控制节点 DolphinDB 集群](#5-创建多控制节点-dolphindb-集群)
-  - [6. 更新 DolphinDB 集群](#6-更新-dolphindb-集群)
-  - [7. 删除 DolphinDB 集群](#7-删除-dolphindb-集群)
-  - [8. CRD 说明](#8-crd-说明)
-    - [8.1. DolphinDB CRD](#81-dolphindb-crd)
-    - [8.2. InstanceMeta](#82-instancemeta)
-  - [9. 常见问题](#9-常见问题)
+<!-- vscode-markdown-toc -->
+* 1. [概述](#)
+* 2. [创建 DolphinDB 集群](#DolphinDB)
+	* 2.1. [前置条件](#-1)
+* 3. [创建单节点 DolphinDB](#DolphinDB-1)
+* 4. [创建单控制节点 DolphinDB 集群](#DolphinDB-1)
+* 5. [创建多控制节点 DolphinDB 集群](#DolphinDB-1)
+* 6. [更新 DolphinDB 集群](#DolphinDB-1)
+* 7. [删除 DolphinDB 集群](#DolphinDB-1)
+* 8. [CRD 说明](#CRD)
+	* 8.1. [DolphinDB CRD](#DolphinDBCRD)
+	* 8.2. [InstanceMeta](#InstanceMeta)
+* 9. [常见问题](#-1)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
 本文介绍如何使用 `DolphinDB CR (Customer Resources)` 在 Kubernetes 上创建和管理 DolphinDB 集群。如需更简易地管理集群，可以使用 DolphinDB 套件提供的可视化管理页面。
 
@@ -79,6 +85,7 @@ $ kubectl apply -f standalone.yaml
 
 ```
 $ kubectl get po -n dolphindb
+
 NAME                         READY     STATUS    RESTARTS    AGE
 ddb-test-dn-0-0               4/4     Running      0         1h
 ```
@@ -87,6 +94,7 @@ ddb-test-dn-0-0               4/4     Running      0         1h
 
 ```
 $ kubectl get svc -n dolphindb
+
 NAME                               TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
 ddb-test-dn                       NodePort    10.110.231.114      <none>    32210:30074/TCP,8000:32153/TCP   1h
 ```
@@ -165,6 +173,7 @@ $ kubectl apply -f singlecontroller.yaml
 
 ```
 $ kubectl get po -n dolphindb
+
 NAME                                            READY     STATUS    RESTARTS      AGE
 ddb-test-cn-0-0                                   4/4     Running      0          1h
 ddb-test-cn-1-0                                   4/4     Running      0          1h
@@ -177,6 +186,7 @@ ddb-test-dn-1-0                                   4/4     Run
 
 ```
 $ kubectl get svc -n dolphindb
+
 NAME                               TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
 ddb-test-cn                       NodePort    10.100.19.169       <none>    32210:31094/TCP,8000:30623/TCP   1h
 ddb-test-ctr                      NodePort    10.99.17.228        <none>    31210:30018/TCP                  1h
@@ -258,6 +268,7 @@ $ kubectl apply -f multicontroller.yaml
 
 ```
 $ kubectl get po -n dolphindb
+
 NAME                              READY     STATUS    RESTARTS      AGE
 ddb-test-cn-0-0                    4/4     Running      0          1h
 ddb-test-cn-1-0                    4/4     Running      0          1h
@@ -273,6 +284,7 @@ ddb-test6-svc-mgr-89666f687-8bk2j  1/1     Running      0          1h
 
 ```
 $ kubectl get svc -n dolphindb
+
 NAME                               TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
 ddb-test-cn                       NodePort    10.100.19.169       <none>    32210:31094/TCP,8000:30623/TCP   1h
 ddb-test-ctr                      NodePort    10.99.17.228        <none>    31210:30018/TCP                  1h
@@ -387,6 +399,7 @@ status:
 
 ```
 $ kubectl get po -n dolphindb
+
 NAME                                                   READY   STATUS              RESTARTS   AGE
 ddb-test-cn-0-0                                         0/4     Init:0/1               0      6s
 ddb-test-cn-1-0                                         0/4     Init:0/1               0      6s
@@ -441,7 +454,7 @@ $ kubectl delete ddb -n dolphindb test
       - `requests`: 最小限制
         - `cpu`: `string`，`cpu` 资源配额，如: 1
         - `memory`: `string`，内存资源配置，如: 1Gi
-    - `instances`: map[int]InstanceMeta，节点实例配置
+    - `instances`: map[int][InstanceMeta](#InstanceMeta)，节点实例配置
     - `volumes`: [][Volume](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes)，需要挂载的存储卷配置
     - `volumeMounts`: [][VolumeMount](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes)，存储卷挂载路径配置
     - `clusterConfig`: map[string]string，集群配置
@@ -458,7 +471,7 @@ $ kubectl delete ddb -n dolphindb test
       - `requests`: 最小限制
         - `cpu`: `string`，`cpu` 资源配额，如: 1
         - `memory`: M，内存资源配置，如: 1Gi
-    - `instances`: map[int]InstanceMeta，节点实例配置
+    - `instances`: map[int][InstanceMeta](#InstanceMeta)，节点实例配置
     - `volumes`: [][Volume](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes)，需要挂载的存储卷配置
     - `volumeMounts`: [][VolumeMount](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes)，存储卷挂载路径配置
     - `config`: map[string]string，计算节点配置信息
@@ -474,7 +487,7 @@ $ kubectl delete ddb -n dolphindb test
       - `requests`: 最小限制
         - `cpu`: `string`，`cpu` 资源配额，如: 1
         - `memory`: `string`，内存资源配置，如: 1Gi
-    - `instances`: map[int]InstanceMeta，节点实例配置
+    - `instances`: map[int][InstanceMeta](#InstanceMeta)，节点实例配置
     - `volumes`: [][Volume](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes)，需要挂载的存储卷配置
     - `volumeMounts`: [][VolumeMount](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes)，存储卷挂载路径配置
     - `config`: `map[string]string`，数据节点配置信息
@@ -502,7 +515,7 @@ $ kubectl delete ddb -n dolphindb test
 
 ##  9. <a name='-1'></a>常见问题
 
-- 如何正确设置 resources (资源配额)?
+### 如何正确设置 resources (资源配额)?
 
 CR 中 `resources` 的设置需要满足以下要求：
 
@@ -510,17 +523,13 @@ CR 中 `resources` 的设置需要满足以下要求：
 2. `requests` 的设置会强制占用机器相应的资源，请酌情设置。
 3. `limits` 表示可用资源的最大值，当容器使用的内存资源超过该最大值时，该节点将出现异常。当容器使用的 CPU 资源超过该最大值时，该节点将会被限流。
 
-- 如何解决集群中各节点因域名后缀错误造成的通信问题导致的启动失败?
+### 如何解决集群中各节点因域名后缀错误造成的通信问题导致的启动失败?
 
 1. 查看套件管理集群：
 
 ```
-kubectl get ddb -ndolphindb
-```
+$ kubectl get ddb -n dolphindb
 
-目前套件管理的集群如下, 以修改 `test` 集群为例：
-
-```
 NAME       MODE      STATUS      AGE
 test      cluster   Available    2d
 ```
@@ -528,7 +537,7 @@ test      cluster   Available    2d
 2. 执行以下命令编辑集群配置文件：
 
 ```
-$ kubectl edit ddb test -ndolphindb 
+$ kubectl edit ddb test -n dolphindb 
 ```
 
 3. 在配置文件中增加 `domainSuffix` 配置:
@@ -549,13 +558,8 @@ spec:
 4. 查看 `pod` 启动情况：
 
 ```
-kubectl get pod -ndolphindb
-```
-
-输出如下：
-
-```
 $ kubectl get po -n dolphindb
+
 NAME                              READY     STATUS    RESTARTS      AGE
 ddb-test-cn-0-0                    4/4     Running      0          1h
 ddb-test-cn-1-0                    4/4     Running      0          1h
@@ -567,7 +571,7 @@ ddb-test-dn-1-0                    4/4     Running      0     �
 ddb-test6-svc-mgr-89666f687-8bk2j  1/1     Running      0          1h
 ```
 
-- 如何设置 `dataSize` 跟 `logSize` ？
+### 如何设置 `dataSize` 跟 `logSize` ？
 
 二者用法如下：
 
@@ -587,31 +591,26 @@ ddb-test6-svc-mgr-89666f687-8bk2j  1/1     Running      0          1h
 此时，可以通过 `kubectl describe pod` 命令查看 `Pod` 出现 `Pending` 状态的具体原因：
 
 ```
-kubectl describe po -n ${namespace} ${pod_name}
+$ kubectl describe po -n ${namespace} ${pod_name}
 ```
 
-- 为何创建集群后 `Pod` 没有创建？
+### 为何创建集群后 `Pod` 没有创建？
 
 可以通过以下命令进行诊断：
 
 ```
-kubectl get pod -nlphindb
-kubectl describe pod $podName -ndolphindb
-kubectl get statefulset -n dolphindb
-kubectl describe statefulset $statefulsetName -n dolphindb
+$ kubectl get pod -nlphindb
+$ kubectl describe pod $podName -ndolphindb
+$ kubectl get statefulset -n dolphindb
+$ kubectl describe statefulset $statefulsetName -n dolphindb
 ```
 
-- 创建 DolphinDB 集群后，由于一个 `service` 对应多个 `data nodes`，如何将 `service` 与 `data node` 设置为一一对应？
+### 创建 DolphinDB 集群后，由于一个 `service` 对应多个 `data nodes`，如何将 `service` 与 `data node` 设置为一一对应？
 
 1. 使用以下命令查看套件管理集群：
 
 ```
-kubectl get ddb -ndolphindb
-```
-
-目前套件管理的集群如下, 以修改 test 集群为例：
-
-```
+$ kubectl get ddb -ndolphindb
 NAME       MODE      STATUS      AGE
 test      cluster   Available    2d
 ```
@@ -619,12 +618,8 @@ test      cluster   Available    2d
 2. 查看 DolphinDB 集群数据节点，节点编号分别为 0, 1, 2：
 
 ```
-kubectl get pod -ndolphindb|grep test-dn
-```
+$ kubectl get pod -ndolphindb|grep test-dn
 
-输出如下：
-
-```
 ddb-test-dn-0-0                                      4/4     Running   0             2d
 ddb-test-dn-1-0                                      4/4     Running   0             2d
 ddb-test-dn-2-0                                      4/4     Running   0             2d
@@ -633,7 +628,7 @@ ddb-test-dn-2-0                                      4/4     Running   0        
 3. 执行以下命令编辑配置文件：
 
 ```
-$ kubectl edit ddb test -ndolphindb 
+$ kubectl edit ddb test -n dolphindb 
 ```
 
 4. 在 */spec/datanode* 增加以下部分:
@@ -660,31 +655,23 @@ spec:
 5. 查看 `datanode` 对应的 `port`：
 
 ```
-kubectl get svc -ndolphindb |grep test-dn
-```
+$ kubectl get svc -ndolphindb |grep test-dn
 
-结果如下，其中，`dn-0` 对应端口 31681，`dn-1` 对应端口 30345，`dn-2` 对应端口 32260：
-
-```
 ddb-test-dn                          NodePort    10.219.111.48    <none>        8960:32220/TCP,32210:30126/TCP,8000:31334/TCP   12m
 ddb-test-dn-0                        NodePort    10.222.26.164    <none>        32210:31681/TCP                                 47s
 ddb-test-dn-1                        NodePort    10.213.35.140    <none>        32210:30345/TCP                                 47s
 ddb-test-dn-2                        NodePort    10.221.145.167   <none>        32210:32260/TCP                                 47s                                 
 ```
 
-- 创建 DolphinDB 集群后，如何自定义挂载卷？
+### 创建 DolphinDB 集群后，如何自定义挂载卷？
 
 为 `datanode` 自定义挂载卷的操作步骤如下：
 
-`. 查看套件管理集群：
+1. 查看套件管理集群：
 
 ```
-kubectl get ddb -ndolphindb
-```
+$ kubectl get ddb -ndolphindb
 
-目前套件管理的集群如下, 以修改 test 集群为例：
-
-```
 NAME       MODE      STATUS      AGE
 test      cluster   Available   2d
 ```
@@ -692,20 +679,14 @@ test      cluster   Available   2d
 2. 查看 DolphinDB 集群数据节点，节点编号分别为 0, 1, 2：
 
 ```
-kubectl get pod -ndolphindb|grep test-dn
-```
+$ kubectl get pod -ndolphindb|grep test-dn
 
-输出如下：
-
-```
 ddb-test-dn-0-0                                      3/3     Running   0             2d
 ddb-test-dn-1-0                                      3/3     Running   0             2d
 ddb-test-dn-2-0                                      3/3     Running   0             2d
 ```
 
-3. 创建 `PVC` 资源。
-
-假设要为 `ddb-test-dn-0-0` 挂载一个自定义卷，其 `PVC` 名称为 `extra-data-volume0`，且为所有数据节点均挂载一个全局 `PVC`，`PVC` 的样例文件为 `extra-data-volume0.yaml`、`extra-data-volume.yaml`，分别如下：
+3. 创建 `PVC` 资源, 假设要为 `ddb-test-dn-0-0` 挂载一个自定义卷，其 `PVC` 名称为 `extra-data-volume0`，且为所有数据节点均挂载一个全局 `PVC`，`PVC` 的样例文件为 `extra-data-volume0.yaml`、`extra-data-volume.yaml`，分别如下：
 
 `extra-data-volume0.yaml`：
 
@@ -746,12 +727,8 @@ spec:
 4. 执行以下命令:
 
 ```
-kubectl apply -f extra-data-volume.yaml extra-data-volume0.yaml
-```
+$ kubectl apply -f extra-data-volume.yaml extra-data-volume0.yaml
 
-期望输出:
-
-```
 persistentvolumeclaim/extra-data-volume persistentvolumeclaim/extra-data-volume0 created
 ```
 
@@ -812,19 +789,15 @@ datanode:
   - `instances.0.volumeMounts`：`index` 为 0 的 `datanode` 节点的 `container` 会挂载此字段声明的 `volumeMount`。
   - `controller` 的自定义卷挂载格式和 `datanode` 声明相同，可在 `controller` 字段下声明。
 
-- 如何将 DolphinDB 集群调度到指定节点？
+### 如何将 DolphinDB 集群调度到指定节点？
 
 可以利用节点亲和性将集群调度到指定节点：
 
 1. 列出集群中的节点及其标签：
 
 ```
-kubectl get nodes --show-labels
-```
+$ kubectl get nodes --show-labels
 
-输出如下：
-
-```
 NAME      STATUS    ROLES    AGE     VERSION        LABELS
 worker0   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker0
 worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
@@ -834,20 +807,21 @@ worker2   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=w
 2. 选择一个节点，为它添加一个标签：
 
 ```
-kubectl label nodes worker0 disktype=ssd
+$ kubectl label nodes worker0 disktype=ssd
 ```
 
-重新查询节点标签，输出如下：
+3. 重新查询节点标签，输出如下：
 
 ```
 $ kubectl get nodes --show-labels
+
 NAME      STATUS    ROLES    AGE     VERSION        LABELS
 worker0   Ready     <none>   1d      v1.13.0        ...,disktype=ssd,kubernetes.io/hostname=worker0
 worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
 worker2   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker2
 ```
 
-3. 准备一个包含节点亲和性配置的 DolphinDB CR *.yaml*配置文件：
+4. 准备一个包含节点亲和性配置的 DolphinDB CR *.yaml*配置文件：
 
 ```yaml
 cat <<EOF > standalone.yaml
@@ -892,16 +866,17 @@ spec:
 EOF
 ```
 
-4. 使用以下命令部署该 CR 文件：
+5. 使用以下命令部署该 CR 文件：
 
 ```
 $ kubectl apply -f standalone.yaml
 ```
 
-5. 使用以下命令查看 `pod` 绑定的节点情况：
+6. 使用以下命令查看 `pod` 绑定的节点情况：
 
 ```
 $ kubectl get po -n dolphindb -o wide
+
 NAME             READY   STATUS   RESTARTS   AGE  IP           NODE      NOMINATED NODE   READINESS GATES
 ddb-test-dn-0-0  4/4     Running     0       45s  172.17.0.17  worker0   <none>           <none>
 ```

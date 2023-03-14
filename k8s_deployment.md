@@ -9,14 +9,8 @@ Kubernetes（简称 K8S）是一个开源的容器集群管理系统，可以实
     - [2.2 部署 DolphinDB 套件](#22-部署-dolphindb-套件)
       - [2.2.1 部署 Local Path Provisioner](#221-部署-local-path-provisioner)
       - [2.2.2 安装 DolphinDB 套件](#222-安装-dolphindb-套件)
-    - [2.3 部署并连接 DolphinDB 集群](#23-部署并连接-dolphindb-集群)
-      - [2.3.1 可视化界面](#231-可视化界面)
-      - [2.3.2 部署 DolphinDB 集群](#232-部署-dolphindb-集群)
-      - [2.3.3 访问 Grafana 面板](#233-访问-grafana-面板)
-    - [2.4  升级 DolphinDB 集群](#24--升级-dolphindb-集群)
-    - [2.5 更新 DolphinDB 集群 license 文件](#25-更新-dolphindb-集群-license-文件)
-    - [2.6 销毁DolphinDB 集群](#26-销毁dolphindb-集群)
-    - [2.7 卸载 DolphinDB 套件](#27-卸载-dolphindb-套件)
+    - [2.3 管理 DolphinDB 集群](#23-管理-dolphindb-集群)
+    - [2.4 卸载 DolphinDB 套件](#24-卸载-dolphindb-套件)
   - [3. K8S 中配置 CoreDump](#3-k8s-中配置-coredump)
   - [4. 常见问题](#4-常见问题)
 
@@ -26,7 +20,7 @@ DolphinDB 在 Kubernetes 环境中以容器的形式运行并提供服务：
 
 - 服务资源：DolphinDB 在 Kubenrnetes 环境中被抽象为自定义资源 ddb，ddb 定义了 DolphinDB 在 Kubernetes 环境中运行的相关属性，通过这些属性指定 DolphinDB 运行的具体配置。
 
-- 资源管理：服务组件 ddb-operator 负责管理 DolphinDB 运行在 Kubernetes 环境中的资源。它将 ddb 资源解析为 Kubernetes 环境中的容器、服务、配置等资源，并实时监听这些资源，保证 DolphinDB 在 Kubernetes 环境中正常运行。
+- 资源管理：服务组件 dolphindb-operator 负责管理 DolphinDB 运行在 Kubernetes 环境中的资源。它将 ddb 资源解析为 Kubernetes 环境中的容器、服务、配置等资源，并实时监听这些资源，保证 DolphinDB 在 Kubernetes 环境中正常运行。
 
 - 身份验证：在 Kubernetes 环境中，DolphinDB 运行前需要通过 license 进行身份验证。license 被定义为一个 ConfigMap 资源。
 
@@ -55,7 +49,13 @@ DolphinDB 套件 version： [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphi
 DolphinDB 套件是指 Kubernetes 环境中 DolphinDB 的资源和界面管理组件的集合，包含以下部分：
 
 - dolphindb-operator：DolphinDB 在 Kubernetes 环境中的资源管理器；
-- dolphindb-webserver：DolphinDB 在 Kubernetes 环境中的可视化管理界面。
+- dolphindb-cloud-portal：DolphinDB 在 Kubernetes 环境中的可视化管理界面。
+- dollphindb-webserver: DolphinDB-Webserver 为 dolphindb-cloud-portal 提供调用接口。
+- alertmanager: Alertmanager 处理客户端应用程序(如 Prometheus 服务器)发送的警报。它负责将报警内容去重，分组并将告警内容路由到合适的接收器中。
+- grafana: Grafana 用于实现监控数据的可视化。
+- loki: Loki 是一个水平可扩展，高可用性，多租户的日志聚合系统。
+- node-exporter: Node-Exporter 为 Prometheus 采集硬件和系统内核相关的指标。
+- prometheus: ​Prometheus 是以开源软件的形式进行研发的系统监控和告警工具包。
 
 本文介绍了如何创建一个 Kubernetes 集群，部署 DolphinDB 套件，并使用它部署一个3节点的高可用集群，最终搭建的集群节点如下:
 
@@ -83,7 +83,7 @@ docker 安装完成后，在 Linux 命令行窗口执行以下命令，若显示
 $ docker -v
 ```
 
-helm安装完成后，在 Linux 命令行窗口执行以下命令，若显示 helm 版本号，则说明安装成功。
+helm 安装完成后，在 Linux 命令行窗口执行以下命令，若显示 helm 版本号，则说明安装成功。
 
 ```bash
 $ helm version
@@ -198,23 +198,12 @@ $ helm install dolphindb-mgr dolphindb/dolphindb-mgr --set global.version="v1.0.
 
 DolphinDB 的进程启动需要 license 才能生效，所以需要在指令中增加 `license.content=$licensePath/license.lic` ，并将其改为license 所在的路径。
 
-期望输出：
-
-```shell
-NAME: dolphindb-mgr                                                     
-LAST DEPLOYED: Wed Jan 12 14:39:11 2022                                 
-NAMESPACE: dolphindb
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-```
-
 主要参数说明如下：
 
 - `-ndolphindb --create-namespace`：将 DolphinDB 套件部署在名为 "dolphindb" 的 namespace 中，如果名为 "dolphindb" 的 namespace 不存在，则创建
 - `$licensePath`：DolphinDB License 的存放的绝对路径
 - `global.serviceType=NodePort, dolphindb-webserver.nodePortIP`：DolphinDB 套件在 Kubernetes 环境中提供的服务类型。ClusterIP：仅在 Kubernetes 环境内部访问；NodePort：通过主机端口可在 Kubernetes 环境内/外部访问；LoadBalancer：通过 Kubernetes 环境中的负载均衡供 Kubernetes 环境内/外部访问。示例选择的是NodePort类型,假设您需要 LoadBalancer 类型，需要修改参数。
-- `global.version`: DolphinDB 套件版本号为 [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphindb-operator/tags)，相关 Release 说明见https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/realease/1.0/README_CN.md。
+- `global.version`: DolphinDB 套件版本号为 [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphindb-operator/tags)，相关 Release 说明见https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/release/1.0/README_CN.md。
 
 > 注意：
 >
@@ -230,19 +219,41 @@ TEST SUITE: None
 | `global.serviceType`               | DolphinDB 套件在 Kubernetes 环境中提供的服务类型。ClusterIP：仅在 Kubernetes 环境内部访问；NodePort：通过主机端口可在 Kubernetes 环境内/外部访问；LoadBalancer：通过 Kubernetes 环境中的负载均衡供 Kubernetes 环境内/外部访问。 |
 | `global.serviceAccount`            | DolphinDB 套件的 rbac 资源名称，非必要无需修改。             |
 | `global.version`                   | DolphinDB 套件版本名称。                                     |
+| `global.existingLokiAddress`       | 已部署 Loki 地址。                                     |
 | `global.allNamespace`              | DolphinDB 是否在所有 namespace 生效。true: DolphinDB 可在部署在所有 namespace 并接受其管理；false: DolphinDB 仅在部署在当前 namespace 并接受其管理。 |
+| `dolphindb.coreDumpDir`                | DolphinDB coreDUmp 输出路径。                                     |
+| `dolphindb.serviceType`            | DolphinDB 在 Kubernetes 环境提供的服务类型，详情可参考 `global.serviceType`。 |
+| `dolphindb.controllerDataSize`     | DolphinDB 的每个 Controller 节点的持久化存储数据的默认大小。 |
+| `dolphindb.datanodeDataSize`       | DolphinDB 的每个 Datanode 节点的持久化存储数据的默认大小。   |
+| `dolphindb.disableExporter`       | 是否禁止采集 DolphinDB 数据指标，默认 false   |
+| `dolphindb.logCleanLimit`       | 日志清理阈值,默认为 0.9   |
+| `license.name`                     | DolphinDB License 部署后的 Configmap 资源名称，非必要无需修改。 |
+| `license.content`                  | DolphinDB License 的内容。                                   |
+| `license.resources`                | DolphinDB 每个容器的 [cpu 和 memory](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) 的默认资源配置。应与 License 中给定的资源配置相同。 |
 | `dolphindb-operator.replicaCount`  | DolphinDB 套件中 dolphindb-operator 组件的副本数。           |
 | `dolphindb-operator.imageTag`      | DolphinDB 套件中 dolphindb-operator 组件的版本号，不指定时与 `global.version` 保持一致。 |
 | `dolphindb-webserver.replicaCount` | DolphinDB 套件中 dolphindb-webserver 组件的副本数。          |
 | `dolphindb-webserver.imageTag`     | DolphinDB 套件中 dolphindb-webserver 组件的版本号。不指定时与 `global.version` 保持一致。 |
 | `dolphindb-webserver.nodePortIP`   | webserver 展示 DolphinDB 时对外暴露 ip。如果 `global.serviceType` 使用 NodePort 类型，则需要指定 `nodePortIP`。可以指定 Kubernetes 集群中任意一个节点的 ip 为 `nodePortIP`。 |
-| `dolphindb.version`                | DolphinDB 的默认版本号。                                     |
-| `dolphindb.serviceType`            | DolphinDB 在 Kubernetes 环境提供的服务类型，详情可参考 `global.serviceType`。 |
-| `dolphindb.controllerDataSize`     | DolphinDB 的每个 Controller 节点的持久化存储数据的默认大小。 |
-| `dolphindb.datanodeDataSize`       | DolphinDB 的每个 Datanode 节点的持久化存储数据的默认大小。   |
-| `license.name`                     | DolphinDB License 部署后的 Configmap 资源名称，非必要无需修改。 |
-| `license.content`                  | DolphinDB License 的内容。                                   |
-| `license.resources`                | DolphinDB 每个容器的 [cpu 和 memory](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) 的默认资源配置。应与 License 中给定的资源配置相同。 |
+| `dolphindb-cloud-portal.replicaCount` | DolphinDB 套件中 dolphindb-cloud-portal 组件的副本数。          |
+| `dolphindb-cloud-portal.imageTag`     | DolphinDB 套件中 dolphindb-cloud-portal 组件的版本号。不指定时与 `global.version` 保持一致。 |
+| `grafana.enabled`                  | 是否安装 Grafana 组件，默认为 true。                                   |
+| `prometheus.enabled`                  | 是否安装 Prometheus 组件，默认为 true。                                   |
+| `alertmanager.enabled`                  | 是否安装 Alertmanager 组件，默认为 true。                                   |
+| `node-exporter.enabled`                  | 是否安装 Node-Exporter 组件，默认为 true。                                   |
+| `loki.enabled`                  | 是否安装 loki 组件，默认为 true。                                   |
+
+
+期望输出：
+
+```shell
+NAME: dolphindb-mgr                                                     
+LAST DEPLOYED: Wed Jan 12 14:39:11 2022                                 
+NAMESPACE: dolphindb
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
 
 3. 查看 DolphinDB 套件部署情况
 
@@ -263,122 +274,28 @@ $ kubectl get pods -ndolphindb
 
 期望输出：
 
-```shell
-NAME                                   READY   STATUS    RESTARTS   AGE                                                         
-dolphindb-operator-0                   1/1     Running   0          20m                                                         
-dolphindb-operator-1                   1/1     Running   0          12m                                                         
-dolphindb-webserver-5487785cfd-msr5w   1/1     Running   0          20m                                                         
-dolphindb-webserver-5487785cfd-ns5dq   1/1     Running   0          20m
+```sh
+NAME                                   	   		   READY   STATUS    RESTARTS   AGE                                                
+dolphindb-operator-0                        	    1/1     Running   0          20m                                          
+dolphindb-operator-1                   			    1/1     Running   0          12m                                                
+dolphindb-webserver-5487785cfd-msr5w   			    1/1     Running   0          20m                                              
+dolphindb-webserver-5487785cfd-ns5dq   			    1/1     Running   0          20m
+dolphindb-mgr-grafana-759dccc7d4-cskx6              1/1     Running   0          30m
+dolphindb-mgr-altermanager-0                        1/1     Running   0          21m
+dolphindb-mgr-loki-0                                1/1     Running   0          32m
+dolphindb-mgr-prometheus-server-7657fdd64-2lkcr     1/1     Running   0          40m
+dolphindb-mgr-node-exporter-sl9db                   1/1     Running   0          23m
 ```
 
 > 注意：
 >
 > Helm 状态变成 deployed 以及 pod 的 STATUS 变成 Running 则表示 DolphinDB 套件部署成功。
 
-### 2.3 部署并连接 DolphinDB 集群
+### 2.3 管理 DolphinDB 集群
 
-#### 2.3.1 可视化界面
+通过 DolphinDB 套件管理 DolphinDB 集群可以参考[文档](./dolphindb_cloud_portal.md)。
 
-DolphinDB 套件提供的可视化界面默认使用 NodePort 的 ServiceType 进行服务暴露。在完成 DolphinDB 套件部署之后，可在 Kubernetes 环境中查看可视化界面对应的 Service：
-
-```shell
-$ kubectl -ndolphindb get svc | grep dolphindb-webserver
-
-#输出结果
-dolphindb-webserver   NodePort    10.109.94.68    <none>        8080:30908/TCP   43m
-```
-
-通过浏览器访问 DolphinDB 套件的可视化界面：
-
-```
-http://$nodeIP:$NodePort/dolphindb-cloud
-```
-
-参数说明如下：
-
-- $nodeIP：Kubernetes 环境中任意 node 的 ip。
-
-- $NodePort：终端显示信息中 DolphinDB 套件的可视化界面对应的 NodePort（输出结果中的"30908"）。
-
-> 注意：
->
-> 若使用 minikube 部署， 需要执行以下命令:
->
-> kubectl port-forward svc/dolphindb-webserver 8080 -ndolphindb
-
-本教程即http://192.168.100.10:30908/dolphindb-cloud/
-
-#### 2.3.2 部署 DolphinDB 集群
-
-1. 点击新建集群
-
-![image-20220112155415310](./images/k8s_deployment/k8s-deployment-2.png)
-
-2. 选择新建集群的配置
-
-![image-20220112155429794](./images/k8s_deployment/k8s-deployment-3.png)
-
-> 注意：
->
-> 1、控制节点与数据节点的 CPU、内存等资源不能超过服务器本身资源，否则集群状态会有异常。
->
-> 2、日志模式有两种分别为标准输出和输出到文件，输出到文件性能更佳（推荐）。
->
-> 3、控制节点副本数以及数据节点副本数指的集群的控制节点与数据节点的数量。
->
-> 4、标准 pvc 更加灵活，local path 更加简便（推荐，部署文档中的 local-path 是存储类，也是用于提供 pvc 的）。
->
-> 5、端口指的是 container 的端口，用在 LoadBalancer 中，指定 port 。
-
-3. 成功部署集群
-
-![image-20220112161319747](./images/k8s_deployment/k8s-deployment-4.png)
-
-- 状态变成 `Available`，表示集群创建成功，可以正常提供服务。
-
-4. 连接 DolphinDB 集群
-
-![image-20220112171813273](./images/k8s_deployment/k8s-deployment-5.png)
-
-如图所示，控制节点的 IP 和 PORT 为 `192.168.100.10:31598`，数据节点的 IP 和 PORT 为 `192.168.100.10:31236`。
-
-> 注意：
->
-> 目前 NodePort 服务类型的端口随机分配，不支持指定。
-
-#### 2.3.3 访问 Grafana 面板
-
-你可以访问 Grafana 服务端口，以便本地访问 Grafana 面板
-
-```
-kubectl get svc -ndolphindb|grep grafana
-```
-
-Grafana 面板可在 kubectl 所运行的主机上通过 http://NodeIP:NodePort 访问。默认用户名和密码都是 "admin" 
-
-了解更多使用 DolphinDB 套件部署 DolphinDB 集群监控的信息，可以查阅 [DolphinDB 集群监控与告警](https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/Monitoring_and_alerting_in_k8s.md)。
-
-### 2.4  升级 DolphinDB 集群
-
-DolphinDB 组件可简化 DolphinDB 集群的滚动升级。
-
-执行以下命令，手动修改 version 字段为 1.30.15 可将 DolphinDB 集群升级到 1.30.15 版本：
-
-```shell
-$ kubectl edit ddb -ndolphindb
-```
-
-![image-20220112180135714](./images/k8s_deployment/k8s-deployment-6.png)
-
-如下图所示，version 变成 `1.30.15` 以及 status 变成 Available 状态
-
-![image-20220112180645872](./images/k8s_deployment/k8s-deployment-7.png)
-
-> 注意：
->
-> 通过 web 升级 DolphinDB 的接口正在开发中。
-
-### 2.5 更新 DolphinDB 集群 license 文件
+#### 更新 DolphinDB 集群 license 文件
 
 对于已创建的集群，需要通过以下步骤更新 license 文件：
 
@@ -393,7 +310,7 @@ $ kubectl get cm -ndolphindb
 ```bash
 $ kubectl edit cm ddb_test1 -oyaml -ndolphindb
 ```  
-![](./images/k8s_deployment/updatelicense.png)
+![updatelicense](./images/k8s_deployment/updatelicense.png)
 
 如图所示，将红框圈住的部分替换为新的 license 后保存文件。
 
@@ -411,25 +328,7 @@ $ kubectl get pod -ndolphindb
 
 如上图所示，表示所有 pod 重启成功，且更新的 license 文件生效。
 
-### 2.6 销毁DolphinDB 集群
-
-若需要销毁 Kubernetes 集群，可参考 [2.1 创建 Kubernetes 集群](#21-创建-kubernetes-集群)，具体销毁方法取决于其创建方式。本节仅介绍如何销毁 DolphindDB 集群，具体操作方法如下：
-
-​    方式一：通过 Web 管理器删除按钮销毁
-
-![image-20220113100852771](./images/k8s_deployment/k8s-deployment-8.png)
-
-​    方式二：通过命令行进行销毁
-
-```shell
-$ kubectl delete ddb $ddbName  -ndolphindb
-```
-
-参数说明如下：
-
-- $ddbName：Kubernetes 环境中删除的 DolphinDB 集群名称。
-
-### 2.7 卸载 DolphinDB 套件
+### 2.4 卸载 DolphinDB 套件
 
 通过以下命令可卸载 DolphinDB 套件
 

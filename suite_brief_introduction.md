@@ -229,7 +229,7 @@ TEST SUITE: None
 - `$licensePath`：DolphinDB License 的存放的绝对路径
 - `grafana.service.type=NodePort,prometheus.server.service.type=NodePort`: grafana 与 prometheus在 Kubernetes 环境中提供的服务类型。
 - `global.serviceType=NodePort, dolphindb-webserver.nodePortIP`：DolphinDB 套件在 Kubernetes 环境中提供的服务类型。ClusterIP：仅在 Kubernetes 环境内部访问；NodePort：通过主机端口可在 Kubernetes 环境内/外部访问；LoadBalancer：通过 Kubernetes 环境中的负载均衡供 Kubernetes 环境内/外部访问
-- `global.version`: DolphinDB 套件版本号为 [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphindb-operator/tags)，相关 Release 说明见https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/realease/1.0/README_CN.md。
+- `global.version`: DolphinDB 套件版本号为 [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphindb-operator/tags)，相关 Release 说明见https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/release/1.0/README_CN.md。
 - `global.storageClass`: DolphinDB 使用的持久化存储的存储类，不指定则使用默认存储类。
 
 > 注意：
