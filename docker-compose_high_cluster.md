@@ -115,7 +115,7 @@ DolphinDB Cluster 包括四种类型节点：数据节点（data node），计�
 - 执行如下命令，查看项目目录架构：
 
   ```shell
-  $ cd dolphindb_k8s/docker-compose/ddb_high_cluster && tree ./
+  $ cd dolphindb-k8s/docker-compose/ddb_high_cluster && tree ./
   ```
 
   预期输出：
