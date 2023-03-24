@@ -1,12 +1,12 @@
 # DolphinDB in Kubernetes 发行说明
 
 - [DolphinDB in Kubernetes 发行说明](#dolphindb-in-kubernetes-发行说明)
-  - [DolphinDB V1.0.1 Realease Notes](#dolphindb-v101-realease-notes)
-  - [DolphinDB V1.0.0 Realease Notes](#dolphindb-v100-realease-notes)
+  - [DolphinDB V1.0.1 Release Notes](#dolphindb-v101-release-notes)
+  - [DolphinDB V1.0.0 Release Notes](#dolphindb-v100-release-notes)
 
 ------
 
-## DolphinDB V1.0.1 Realease Notes
+## DolphinDB V1.0.1 Release Notes
 
 发行日期: 2022.04.28
 
@@ -39,7 +39,7 @@ DolphinDB 套件版本号：V1.0.1
 - 更新 DolphinDB Server v2.00.4 版本的镜像标签为 v2.00.4-patch3
 
 
-## DolphinDB V1.0.0 Realease Notes
+## DolphinDB V1.0.0 Release Notes
 
 发行日期: 2022.02.25
 
