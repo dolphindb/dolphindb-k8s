@@ -15,10 +15,10 @@
 
 更多监控指标描述，详见 [DolphinDB 集群监控](https://gitee.com/dolphindb/Tutorials_CN/blob/master/DolphinDB_monitor.md)。
 
-对于 v1.0.1 及更高版本的 DolphinDB 套件，通过部署其 Helm 包以快速建立对 Kubernates 上的 
-DolphinDB 集群的监控。
+对于 v1.0.1 及更高版本的 DolphinDB 套件，通过部署其 Helm 包以快速建立对 Kubernates 上的 DolphinDB 集群的监控。
 
 ### 1.1 持久化监控数据
+
 部署 DolphinDB 套件时，设置 global.storageClass 为当前集群中已有的支持数据持久化的存储，否则可能存在数据丢失的风险。
 通过以下命令来确认 PVC 情况：
 ```
@@ -35,7 +35,7 @@ dolphindb-mgr-prometheus-server   Bound    pvc-e9a66d41-ee0d-4d72-a76e-87aeb7f43
   
 Grafana 是一个通用的指标分析和可视化工具。我们将 Prometheus 采集到的监控指标作为 Grafana 的数据源，通过 Grafana 构建 Dashboard 的方式实现 DolphinDB 监控数据的可视化。
 
-Grafana 以服务的方式来提供应用功能。使用 Helm 部署 dolphindb-mgr 套件时，需要将 service.type 设为 NodeIP，以便能在集群外访问 Grafana。
+Grafana 以服务的方式来提供应用功能。使用 Helm 部署 dolphindb-mgr 套件时，需要将 service.type 设为 NodePort，以便能在集群外访问 Grafana。
 ```
 helm -n dolphindb install dolphindb-mgr ./dolphindb-mgr --set grafana.service.type=NodePort prometheus.server.service.type=NodePort --create-namespace
 ```

@@ -209,40 +209,7 @@ DolphinDB 的进程启动需要 license 才能生效，所以需要在指令中�
 >
 > DolphinDB License 必须是官方授权可用的。若使用无效的 license，会出现诸如 "persistentvolumeclaim log-ddb-t3-crt-0-0 not found" 的报错。
 
-**参数说明**
-
-| **参数**                           | **说明**                                                     |
-| ---------------------------------- | ------------------------------------------------------------ |
-| `global.registry`                  | 用户的镜像仓库，如设置为""，则默认从 dockerhub 拉取镜像。    |
-| `global.repository`                | DolphinDB 的镜像仓库名称，非必要无需修改。                   |
-| `global.storageClass`              | DolphinDB 使用的持久化存储的存储类，不指定则使用默认存储类。 |
-| `global.serviceType`               | DolphinDB 套件在 Kubernetes 环境中提供的服务类型。ClusterIP：仅在 Kubernetes 环境内部访问；NodePort：通过主机端口可在 Kubernetes 环境内/外部访问；LoadBalancer：通过 Kubernetes 环境中的负载均衡供 Kubernetes 环境内/外部访问。 |
-| `global.serviceAccount`            | DolphinDB 套件的 rbac 资源名称，非必要无需修改。             |
-| `global.version`                   | DolphinDB 套件版本名称。                                     |
-| `global.existingLokiAddress`       | 已部署 Loki 地址。                                     |
-| `global.allNamespace`              | DolphinDB 是否在所有 namespace 生效。true: DolphinDB 可在部署在所有 namespace 并接受其管理；false: DolphinDB 仅在部署在当前 namespace 并接受其管理。 |
-| `dolphindb.coreDumpDir`                | DolphinDB coreDUmp 输出路径。                                     |
-| `dolphindb.serviceType`            | DolphinDB 在 Kubernetes 环境提供的服务类型，详情可参考 `global.serviceType`。 |
-| `dolphindb.controllerDataSize`     | DolphinDB 的每个 Controller 节点的持久化存储数据的默认大小。 |
-| `dolphindb.datanodeDataSize`       | DolphinDB 的每个 Datanode 节点的持久化存储数据的默认大小。   |
-| `dolphindb.disableExporter`       | 是否禁止采集 DolphinDB 数据指标，默认 false   |
-| `dolphindb.logCleanLimit`       | 日志清理阈值,默认为 0.9   |
-| `license.name`                     | DolphinDB License 部署后的 Configmap 资源名称，非必要无需修改。 |
-| `license.content`                  | DolphinDB License 的内容。                                   |
-| `license.resources`                | DolphinDB 每个容器的 [cpu 和 memory](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) 的默认资源配置。应与 License 中给定的资源配置相同。 |
-| `dolphindb-operator.replicaCount`  | DolphinDB 套件中 dolphindb-operator 组件的副本数。           |
-| `dolphindb-operator.imageTag`      | DolphinDB 套件中 dolphindb-operator 组件的版本号，不指定时与 `global.version` 保持一致。 |
-| `dolphindb-webserver.replicaCount` | DolphinDB 套件中 dolphindb-webserver 组件的副本数。          |
-| `dolphindb-webserver.imageTag`     | DolphinDB 套件中 dolphindb-webserver 组件的版本号。不指定时与 `global.version` 保持一致。 |
-| `dolphindb-webserver.nodePortIP`   | webserver 展示 DolphinDB 时对外暴露 ip。如果 `global.serviceType` 使用 NodePort 类型，则需要指定 `nodePortIP`。可以指定 Kubernetes 集群中任意一个节点的 ip 为 `nodePortIP`。 |
-| `dolphindb-cloud-portal.replicaCount` | DolphinDB 套件中 dolphindb-cloud-portal 组件的副本数。          |
-| `dolphindb-cloud-portal.imageTag`     | DolphinDB 套件中 dolphindb-cloud-portal 组件的版本号。不指定时与 `global.version` 保持一致。 |
-| `grafana.enabled`                  | 是否安装 Grafana 组件，默认为 true。                                   |
-| `prometheus.enabled`                  | 是否安装 Prometheus 组件，默认为 true。                                   |
-| `alertmanager.enabled`                  | 是否安装 Alertmanager 组件，默认为 true。                                   |
-| `node-exporter.enabled`                  | 是否安装 Node-Exporter 组件，默认为 true。                                   |
-| `loki.enabled`                  | 是否安装 loki 组件，默认为 true。                                   |
-
+完整参数可以查看[说明](./dolphindb_chart.md#dolphindb-mgr-参数说明).
 
 期望输出：
 
