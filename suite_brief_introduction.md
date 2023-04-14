@@ -29,9 +29,9 @@ DolphinDB 套件是指 Kubernetes 环境中 DolphinDB 的资源和界面管理�
 
 - dolphindb-webserver：DolphinDB 在 Kubernetes 环境中的可视化管理界面。
 
-  > 警告 ！！！
+  > **警告** ！！！
   >
-  > 本文中的部署说明仅用于测试母的，不要直接用于生产环境部署。
+  > 本文中的部署说明仅用于测试目的，不要直接用于生产环境部署。
 
 ## 2. 快速部署 DolphinDB
 
@@ -72,7 +72,11 @@ controller3  => agent3 => 1 datanode
 
 ### 2.1 创建 Kubernetes 集群
 
-创建集群之前，需要先搭建好 docker 以及 helm，kubectl 环境，参考: [docker 安装教程](https://docs.docker.com/install/)，[Helm 安装教程](https://helm.sh/docs/intro/install/)，[kubectl 安装教程](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)。
+创建集群之前，需要先搭建好 docker 以及 helm，kubectl 环境，参考: 
+
+- [docker 安装教程](https://docs.docker.com/install/)
+- [Helm 安装教程](https://helm.sh/docs/intro/install/)
+- [kubectl 安装教程](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)
 
 docker, helm, kubectl 安装完成后，在 Linux 命令行窗口执行以下命令，若显示 docker,helm, kubectl 版本号，则说明安装成功。
 
@@ -98,7 +102,7 @@ $ minikube start --force --driver=docker --image-repository=registry.cn-hangzhou
 
 **使用 `kubectl` 进行集群操作**
 
-你可以使用 `minikube` 的子命令 `kubectl` 来进行集群操作。要使 `kubectl` 命令生效，你需要在 shell 配置文件中添加以下别名设置命令，或者在打开一个新的 shell 后执行以下别名设置命令。
+可以使用 `minikube` 的子命令 `kubectl` 来进行集群操作。要使 `kubectl` 命令生效，需要在 shell 配置文件中添加以下别名设置命令，或者在打开一个新的 shell 后执行以下别名设置命令。
 
 ```bash
 $ alias kubectl='minikube kubectl --'
@@ -162,7 +166,7 @@ Saving to: ‘local-path-storage.yaml’
 
 该路径目的是持久过存储容器中的数据（详细介绍参考 [local-path-provisioner配置](https://github.com/rancher/local-path-provisioner#configuration) ）
 
-> 注意：
+> **注意**：
 >
 > 修改分配 PV 的本机路径：
 > 找到名为 "local-path-config" 的 ConfigMap 资源，其 data 字段下的 "config.json" 里包含的属性 "paths" 即为分配的 K8S 集群中的节点路径。如果配置了多个节点路径，将随机选取其中一个作为 PV。
@@ -229,14 +233,14 @@ TEST SUITE: None
 - `$licensePath`：DolphinDB License 的存放的绝对路径
 - `grafana.service.type=NodePort,prometheus.server.service.type=NodePort`: grafana 与 prometheus在 Kubernetes 环境中提供的服务类型。
 - `global.serviceType=NodePort, dolphindb-webserver.nodePortIP`：DolphinDB 套件在 Kubernetes 环境中提供的服务类型。ClusterIP：仅在 Kubernetes 环境内部访问；NodePort：通过主机端口可在 Kubernetes 环境内/外部访问；LoadBalancer：通过 Kubernetes 环境中的负载均衡供 Kubernetes 环境内/外部访问
-- `global.version`: DolphinDB 套件版本号为 [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphindb-operator/tags)，相关 Release 说明见https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/release/1.0/README_CN.md。
+- `global.version`: DolphinDB 套件版本号为 [`v1.0.1`](https://hub.docker.com/r/dolphindb/dolphindb-operator/tags)，相关 Release 说明见 [DolphinDB in Kubernetes 发行说明](https://dolphindb.net/dolphindb/dolphindb_k8s/-/blob/master/release/1.0/README_CN.md)。
 - `global.storageClass`: DolphinDB 使用的持久化存储的存储类，不指定则使用默认存储类。
 
 > 注意：
 >
 > DolphinDB License 必须是官方授权可用的。若使用无效的 license，会出现诸如 "persistentvolumeclaim log-ddb-t3-crt-0-0 not found" 的报错。
 
-3. 查看 DolphinDB 套件部署情况
+1. 查看 DolphinDB 套件部署情况
 
 ```shell
 $ kubectl get pods -ndolphindb
@@ -438,8 +442,8 @@ minikube delete --all
 
 ### 4. 探索更多
 
-如果你想在生产环境部署，请参考以下文档：
-
-在公有云上部署：
-
-自托管 Kubernetes 集群：
+- [DolphinDB 套件简介](./suite_brief_introduction.md)
+- [自建 Kubernetes 集群](./k8s_deployment.md)
+- 云厂商
+  - [Aliyun](./k8s_deployment_in_Aliyun.md)
+  - [AWS](./k8s_deployment_in_AWS.md)

@@ -75,7 +75,11 @@ controller3  => agent3 => 1 datanode => 1 Computenode
 
 ### 2.1 创建 Kubernetes 集群
 
-创建集群之前，需要先搭建好 docker 以及 helm，kubectl 环境，参考: [docker 安装教程](https://docs.docker.com/install/)，[Helm 安装教程](https://helm.sh/docs/intro/install/)，[kubectl 安装教程](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)。
+创建集群之前，需要先搭建好 docker 以及 helm，kubectl 环境，参考: 
+
+- [docker 安装教程](https://docs.docker.com/install/)
+- [Helm 安装教程](https://helm.sh/docs/intro/install/)
+- [kubectl 安装教程](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux)
 
 docker, helm, kubectl 安装完成后，在 Linux 命令行窗口执行以下命令，若显示 docker,helm, kubectl 版本号，则说明安装成功。
 
@@ -101,7 +105,7 @@ $ minikube start --vm-driver=none --image-repository=registry.cn-hangzhou.aliyun
 
 **使用 `kubectl` 进行集群操作**
 
-你可以使用 `minikube` 的子命令 `kubectl` 来进行集群操作。要使 `kubectl` 命令生效，你需要在 shell 配置文件中添加以下别名设置命令，或者在打开一个新的 shell 后执行以下别名设置命令。
+可以使用 `minikube` 的子命令 `kubectl` 来进行集群操作。要使 `kubectl` 命令生效，需要在 shell 配置文件中添加以下别名设置命令，或者在打开一个新的 shell 后执行以下别名设置命令。
 
 ```bash
 $ alias kubectl='minikube kubectl --'
@@ -130,7 +134,7 @@ Kubernetes 集群部署完成，现在就可以开始部署 DolphinDB 套件了�
 
 1. 部署[Local path provisioner](https://github.com/rancher/local-path-provisioner)；
 
-> 注意：
+> **注意**：
 > "Local path provisioner" 只是提供了 storageclass，用于创建 pvc，如果用户使用其他类型的 sci，则不需要部署，可以作为没有 sci 的用户的参考项。
 
 
@@ -190,8 +194,8 @@ minikube delete --all
 
 ## 4. 探索更多
 
-如果你想在生产环境部署，请参考以下文档：
-
-在公有云上部署：
-
-自托管 Kubernetes 集群：
+- [DolphinDB 套件简介](./suite_brief_introduction.md)
+- [自建 Kubernetes 集群](./k8s_deployment.md)
+- 云厂商
+  - [Aliyun](./k8s_deployment_in_Aliyun.md)
+  - [AWS](./k8s_deployment_in_AWS.md)
