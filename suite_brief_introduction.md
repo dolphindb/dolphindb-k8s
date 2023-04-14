@@ -5,20 +5,16 @@
 
 <!-- TOC -->
 
-- [快速上手 DolphinDB 套件](#快速上手-dolphindb-套件)
+
   - [1. DolphinDB 套件 简介](#1-dolphindb-套件-简介)
   - [2. 快速部署 DolphinDB](#2-快速部署-dolphindb)
     - [2.1 创建 Kubernetes 集群](#21-创建-kubernetes-集群)
     - [2.2 部署 DolphinDB 套件](#22-部署-dolphindb-套件)
-      - [2.2.1 部署 Local Path Provisioner](#221-部署-local-path-provisioner)
-      - [2.2.2 安装 DolphinDB 套件](#222-安装-dolphindb-套件)
     - [2.3 部署并连接 DolphinDB 集群](#23-部署并连接-dolphindb-集群)
-      - [2.3.1 可视化界面](#231-可视化界面)
-      - [2.3.2 部署 DolphinDB 集群](#232-部署-dolphindb-集群)
-      - [2.3.3 访问 Grafana 面板](#233-访问-grafana-面板)
     - [2.4  升级 DolphinDB 集群](#24--升级-dolphindb-集群)
     - [2.5 销毁DolphinDB 集群和 Kubernetes 集群](#25-销毁dolphindb-集群和-kubernetes-集群)
-    - [4. 探索更多](#4-探索更多)
+    - [3. 探索更多](#3-探索更多)
+
 
 <!-- /TOC -->
 ## 1. DolphinDB 套件 简介
@@ -440,7 +436,7 @@ $ helm uninstall dolphindb-mgr-ndolphindb
 minikube delete --all
 ```
 
-### 4. 探索更多
+### 3. 探索更多
 
 - [DolphinDB 套件简介](./suite_brief_introduction.md)
 - [自建 Kubernetes 集群](./k8s_deployment.md)
