@@ -1,5 +1,3 @@
-version: "3.9"
-
 x-config: &config
   ulimits:
     memlock:
@@ -20,7 +18,7 @@ services:
       - ${HOST_CFG}/cluster.nodes:${CON_FIG}/cluster.nodes
       - ${HOST_CON_DATA}:${CON_DATA}
       - ${HOST_CON_LOG}:${CON_LOG}
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH;./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller.cfg -logFile clusterDemo/log/controller.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$$PWD:$$LD_LIBRARY_PATH; ./dolphindb -console 0 -mode controller -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/controller.cfg -logFile clusterDemo/log/controller.log -nodesFile clusterDemo/config/cluster.nodes -clusterConfig clusterDemo/config/cluster.cfg"]
 
     restart: always
     
@@ -43,7 +41,7 @@ services:
 
 
 
-    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH;./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent.cfg -logFile clusterDemo/log/agent.log"]
+    entrypoint: ["sh", "-c", "cd /data/ddb/server;export LD_LIBRARY_PATH=$$PWD:$$LD_LIBRARY_PATH; ./dolphindb -console 0 -mode agent -home clusterDemo/data -script dolphindb.dos -config clusterDemo/config/agent.cfg -logFile clusterDemo/log/agent.log"]
 
     restart: always
 
