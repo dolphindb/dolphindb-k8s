@@ -21,5 +21,6 @@
   - [Deploy DolphinDB on Kubernetes](./k8s_deployment_EN.md)
   - [Deploy DolphinDB on AWS EKS](./k8s_deployment_in_AWS_EN.md)
 - DolphinDB in Docker 
-  - [Deploy a DolphinDB Cluster on Docker](./docker_deployment_EN.md)
+  - [DolphinDB Standalone Deployment on Docker](./docker_single_deployment_EN.md)
+  - [DolphinDB Multi-Container Deployment With Docker Compose](./docker_compose_deployment.md)
 
